@@ -1,5 +1,8 @@
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.5'
+}
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
 
 repositories {
   mavenCentral()
@@ -9,4 +12,44 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+defaultTasks 'build'
+
+
+
+apply plugin: 'eclipse'
+
 eclipse.classpath.defaultOutputDir = file('classes')
+
+
+
+apply plugin: 'checkstyle'
+checkstyle {
+  configFile = rootProject.file('config/checkstyle.xml')
+  toolVersion = '7.7'
+  ignoreFailures = false
+}
+
+apply plugin: 'pmd'
+pmd {
+  ruleSetFiles = rootProject.files('config/pmd.xml')
+  toolVersion = '5.7.0'
+  ignoreFailures = true
+}
+
+apply plugin: 'findbugs'
+findbugs {
+  toolVersion = '3.0.1'
+  excludeFilter = rootProject.file('config/findbugs_filter.xml')
+  ignoreFailures = true
+}
+
+apply plugin: 'jacoco'
+jacoco {
+  toolVersion = '0.7.9'
+}
+jacocoTestReport {
+  dependsOn 'test'
+}
+check.dependsOn jacocoTestReport
+
+apply from: rootProject.file('gradle/jdepend.gradle')
