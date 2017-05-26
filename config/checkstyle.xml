@@ -27,12 +27,6 @@
     <property name="message" value="@Ignore annotation without a cause"/>
   </module>
 
-   <module name="RegexpHeader">
-     <property name="header"
-         value="/\*\n \* Copyright \(c\) 2017 Remon Sinnema. All Rights Reserved.\n \*/\n" />
-     <property name="fileExtensions" value="java"/>
-   </module>
-
   <module name="UniqueProperties"/>
   
   <module name="SuppressWarningsFilter"/>
