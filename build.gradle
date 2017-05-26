@@ -1,3 +1,6 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+
 buildscript {
   repositories {
     maven { url 'https://plugins.gradle.org/m2/' }
@@ -5,6 +8,7 @@ buildscript {
   }
 
   dependencies {
+    classpath "net.serenity-bdd:serenity-gradle-plugin:$serenityVersion"
     classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
   }
 }
@@ -15,6 +19,8 @@ task wrapper(type: Wrapper) {
 }
 
 apply plugin: 'java'
+sourceCompatibility = 1.8
+
 apply plugin: 'org.springframework.boot'
 
 repositories {
@@ -22,8 +28,12 @@ repositories {
 }
 
 dependencies {
-  compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-  testCompile 'junit:junit:4.12'
+  compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+      "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+  testCompile 'junit:junit:4.12',
+      "net.serenity-bdd:serenity-junit:$serenityVersion",
+      "net.serenity-bdd:serenity-screenplay:$serenityVersion",
+      "net.serenity-bdd:serenity-screenplay-webdriver:$serenityVersion"
 }
 
 defaultTasks 'build'
@@ -67,3 +77,32 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 
 apply from: rootProject.file('gradle/jdepend.gradle')
+
+
+
+apply plugin: 'net.serenity-bdd.aggregator'
+test.finalizedBy aggregate, checkOutcomes
+
+task deleteTarget(type: Delete ) { delete file('target') }
+clean.dependsOn deleteTarget
+
+
+ext {
+  binariesDir = file('src/install')
+  phantomVersion = '2.1.1-' + (Os.isFamily(Os.FAMILY_WINDOWS) ? 'windows' :  Os.isFamily(Os.FAMILY_MAC) ? 'macosx' :
+      'linux-x86_64')
+  phantomInstallFile = new File(binariesDir,'phantom/phantomjs-' + phantomVersion + '.zip')
+  phantomInstallDir = new File(project.buildDir, 'phantom')
+  phantomBinary = new File(phantomInstallDir, 'bin/phantomjs' + (Os.isFamily(Os.FAMILY_WINDOWS) ? '.exe' : ''))
+}
+
+task installPhantom(type: Copy) {
+  group 'any cluster'
+  from zipTree(phantomInstallFile)
+  into phantomInstallDir
+}
+
+test {
+  dependsOn installPhantom
+  systemProperty 'phantomjs.binary.path', phantomBinary.path
+}

@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      function ensureText(field) {
+    	  if (!field.value) {
+    		  field.value = 'Enter text'
+    		  field.select()
+    	  }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Write your <em>Heartbreaking Work of Staggering Genius</em>!</h1>
+    <p>
+      <label for="title">Title:</label><br/>
+      <input id="title" type="text" value="Enter text" oninput="ensureText(this)"/>
+    </p>
+    <p>
+      <label for="text">Contents:</label><br/>
+      <textarea id="text" cols="80" rows="14" oninput="ensureText(this)">Enter text</textarea>
+    </p>
+  </body>
+</html>
