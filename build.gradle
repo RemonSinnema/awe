@@ -51,20 +51,22 @@ checkstyle {
   configFile = rootProject.file('config/checkstyle.xml')
   toolVersion = '7.7'
   ignoreFailures = false
+  maxErrors = 0
+  maxWarnings = 0
 }
 
 apply plugin: 'pmd'
 pmd {
   ruleSetFiles = rootProject.files('config/pmd.xml')
   toolVersion = '5.7.0'
-  ignoreFailures = true
+  ignoreFailures = false
 }
 
 apply plugin: 'findbugs'
 findbugs {
   toolVersion = '3.0.1'
   excludeFilter = rootProject.file('config/findbugs_filter.xml')
-  ignoreFailures = true
+  ignoreFailures = false
 }
 
 apply plugin: 'jacoco'
