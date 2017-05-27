@@ -18,10 +18,12 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 
+import com.remonsinnema.awe.acceptance.questions.TheText;
 import com.remonsinnema.awe.acceptance.questions.TheTitle;
 import com.remonsinnema.awe.acceptance.tasks.Name;
 import com.remonsinnema.awe.acceptance.tasks.Start;
 import com.remonsinnema.awe.acceptance.tasks.Stop;
+import com.remonsinnema.awe.acceptance.tasks.Write;
 
 
 @RunWith(SerenityRunner.class)
@@ -42,10 +44,14 @@ public class WhenWritingHeartbreakingWorkOfStaggeringGenius {
   }
 
   @Test
-  public void shouldNameWork() {
+  public void shouldAddTitleAndContents() {
     givenThat(allen).wasAbleTo(Start.writing());
-    when(allen).attemptsTo(Name.theWork("My First Work"));
-    then(allen).should(seeThat(TheTitle.ofTheWork(), is("My First Work")));
+    when(allen).attemptsTo(
+        Name.theWork("My First Work"),
+        Write.text("The (...writer's block kicks in)"));
+    then(allen).should(
+        seeThat(TheTitle.ofTheWork(), is("My First Work")),
+        seeThat(TheText.ofTheWork(), is("The (...writer's block kicks in)")));
   }
 
 }
