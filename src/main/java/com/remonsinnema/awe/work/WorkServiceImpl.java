@@ -24,20 +24,20 @@ public class WorkServiceImpl implements WorkService {
   private File workDirectory;
 
   @PostConstruct
-  public void init() throws IOException {
+  public void init() {
     setWorkDirectory(workPath);
   }
 
   @Override
-  public void setWorkDirectory(String workDirectory) throws IOException {
+  public void setWorkDirectory(String workDirectory) {
     this.workDirectory = ensureDirectory(workDirectory);
     LOG.info("work directory: " + this.workDirectory);
   }
 
-  private File ensureDirectory(String path) throws IOException {
+  private File ensureDirectory(String path) {
     File result = new File(path);
-    if (!result.isDirectory() && !result.mkdirs() && !result.isDirectory()) {
-      throw new IOException("Could not create directory: " + path);
+    if (!result.isDirectory() && !result.mkdirs()) {
+      throw new IllegalArgumentException("Could not create directory: " + path);
     }
     return result;
   }

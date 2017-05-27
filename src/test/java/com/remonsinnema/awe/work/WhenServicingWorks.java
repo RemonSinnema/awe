@@ -25,7 +25,7 @@ public class WhenServicingWorks {
   private final WorkService service = new WorkServiceImpl();
 
   @Before
-  public void init() throws IOException {
+  public void init() {
     service.setWorkDirectory(WORK_DIRECTORY);
   }
 
@@ -47,6 +47,12 @@ public class WhenServicingWorks {
   public void shouldNotAllowPathManipulation() throws IOException {
     thrown.expect(IllegalArgumentException.class);
     service.save("../foo", "text");
+  }
+
+  @Test
+  public void shouldNotAllowInvalidPathsForTheWorkingDirectory() {
+    thrown.expect(IllegalArgumentException.class);
+    service.setWorkDirectory("build/b\0/ar");
   }
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public interface WorkService {
 
-  void setWorkDirectory(String path) throws IOException;
+  void setWorkDirectory(String path);
 
   void save(String fileName, String text) throws IOException;
 
