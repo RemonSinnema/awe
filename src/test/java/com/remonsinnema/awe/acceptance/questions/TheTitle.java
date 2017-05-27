@@ -5,7 +5,7 @@ import static net.serenitybdd.core.steps.Instrumented.instanceOf;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.annotations.Subject;
-import net.serenitybdd.screenplay.questions.Text;
+import net.serenitybdd.screenplay.questions.Value;
 
 import com.remonsinnema.awe.acceptance.ui.WorkPage;
 
@@ -15,7 +15,7 @@ public class TheTitle implements Question<String> {
 
   @Override
   public String answeredBy(Actor actor) {
-    return Text.of(WorkPage.TITLE_FIELD)
+    return Value.of(WorkPage.TITLE_FIELD)
         .viewedBy(actor)
         .asString();
   }

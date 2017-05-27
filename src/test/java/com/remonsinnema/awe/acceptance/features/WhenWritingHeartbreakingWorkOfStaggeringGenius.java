@@ -1,6 +1,10 @@
 package com.remonsinnema.awe.acceptance.features;
 
+import static org.hamcrest.CoreMatchers.is;
+
 import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.then;
 import static net.serenitybdd.screenplay.GivenWhenThen.when;
 
 import org.junit.After;
@@ -14,6 +18,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 
+import com.remonsinnema.awe.acceptance.questions.TheTitle;
 import com.remonsinnema.awe.acceptance.tasks.Name;
 import com.remonsinnema.awe.acceptance.tasks.Start;
 import com.remonsinnema.awe.acceptance.tasks.Stop;
@@ -40,9 +45,7 @@ public class WhenWritingHeartbreakingWorkOfStaggeringGenius {
   public void shouldNameWork() {
     givenThat(allen).wasAbleTo(Start.writing());
     when(allen).attemptsTo(Name.theWork("My First Work"));
-    /* TODO: Why does this return empty string???
     then(allen).should(seeThat(TheTitle.ofTheWork(), is("My First Work")));
-    */
   }
 
 }
