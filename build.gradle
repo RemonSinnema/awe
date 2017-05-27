@@ -91,7 +91,9 @@ apply plugin: 'net.serenity-bdd.aggregator'
 file('serenity.properties').withInputStream { input ->
   Injectors.getInjector().getProvider(EnvironmentVariables).get().getProperties().load(input)
 }
-test.finalizedBy aggregate, checkOutcomes
+[clearReports, aggregate, checkOutcomes].each {
+  it.logging.level = LogLevel.ERROR
+}
 
 
 ext {
@@ -112,4 +114,5 @@ task installPhantom(type: Copy) {
 test {
   dependsOn installPhantom
   systemProperty 'phantomjs.binary.path', phantomBinary.path
+  finalizedBy aggregate, checkOutcomes
 }
