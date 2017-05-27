@@ -49,8 +49,12 @@ public class WorkServiceImpl implements WorkService {
     }
   }
 
-  private File fileOf(String fileName) {
-    return new File(workDirectory, fileName);
+  private File fileOf(String fileName) throws IOException {
+    File result = new File(workDirectory, fileName);
+    if (!result.getCanonicalPath().startsWith(workDirectory.getCanonicalPath() + File.separator)) {
+      throw new IllegalArgumentException("Invalid file name: " + fileName);
+    }
+    return result;
   }
 
 }

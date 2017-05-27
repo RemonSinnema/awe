@@ -11,13 +11,17 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 public class WhenServicingWorks {
 
   private static final String WORK_DIRECTORY = "build/unit-tests/work";
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
   private final WorkService service = new WorkServiceImpl();
 
   @Before
@@ -37,6 +41,12 @@ public class WhenServicingWorks {
     try (InputStream input = new FileInputStream(file)) {
       assertEquals("File contents", contents, IOUtils.toString(input, StandardCharsets.UTF_8));
     }
+  }
+
+  @Test
+  public void shouldNotAllowPathManipulation() throws IOException {
+    thrown.expect(IllegalArgumentException.class);
+    service.save("../foo", "text");
   }
 
 }
