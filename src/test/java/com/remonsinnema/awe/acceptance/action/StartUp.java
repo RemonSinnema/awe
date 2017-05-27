@@ -21,7 +21,7 @@ public class StartUp implements Interaction {
   @Override
   @Step("{0} starts up the server")
   public <T extends Actor> void performAs(T actor) {
-    Thread serverThread = new Thread(() -> AweApplication.main(new String[] { }));
+    Thread serverThread = new Thread(() -> AweApplication.main(new String[] { "--spring.profiles.active=test" }));
     serverThread.setDaemon(true);
     serverThread.start();
     waitForServer();

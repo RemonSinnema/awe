@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active:
+    - production
+---
+spring:
+  profiles: production
+work:
+  directory: work
+---
+spring:
+  profiles: test
+work:
+  directory: build/acceptance-tests/work
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
