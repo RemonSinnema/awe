@@ -9,4 +9,6 @@ public interface WorkService {
 
   void save(String fileName, String text) throws IOException;
 
+  String load(String fileName) throws IOException;
+
 }

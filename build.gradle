@@ -30,12 +30,15 @@ repositories {
 
 dependencies {
   compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-      "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+      "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
+      "commons-io:commons-io:$commonsIoVersion"
   testCompile 'junit:junit:4.12',
       "net.serenity-bdd:serenity-junit:$serenityVersion",
       "net.serenity-bdd:serenity-screenplay:$serenityVersion",
       "net.serenity-bdd:serenity-screenplay-webdriver:$serenityVersion"
 }
+
+sourceSets.test.java.srcDirs = ['src/programmer-test/java', 'src/customer-test/java']
 
 defaultTasks 'build'
 

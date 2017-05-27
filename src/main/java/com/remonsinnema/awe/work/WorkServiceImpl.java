@@ -1,14 +1,17 @@
 package com.remonsinnema.awe.work;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -55,6 +58,13 @@ public class WorkServiceImpl implements WorkService {
       throw new IllegalArgumentException("Invalid file name: " + fileName);
     }
     return result;
+  }
+
+  @Override
+  public String load(String fileName) throws IOException {
+    try (InputStream input = new FileInputStream(fileOf(fileName))) {
+      return IOUtils.toString(input, StandardCharsets.UTF_8);
+    }
   }
 
 }

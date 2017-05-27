@@ -39,6 +39,17 @@
         return document.getElementById(id);
       }
     
+      function init() {
+        elt("title").focus();
+      }
+      
+      function ensureText(field) {
+        if (!field.value) {
+          field.value = 'Enter text'
+          field.select()
+        }
+      }
+    
       function val(id) {
         return elt(id).value;
       }
@@ -56,50 +67,57 @@
         setStyle(elt(id), "hidden", "none");
       }
     
-      function modalDialog(question, defaultAnswer, handleOk) {
+      function ask(question, defaultAnswer, handleAnswered) {
         elt("question").textContent = question;
-        elt("answer").value = defaultAnswer;
+        var answerField = elt("answer");
+        answerField.value = defaultAnswer;
         elt("ok").onclick = function() {
           var answer = elt("answer").value;
-          hide("modalDialog");
-          handleOk(answer);
+          hide("prompt");
+          handleAnswered(answer);
         }
-        show("modalDialog");
-        elt("answer").focus();
+        show("prompt");
+        answerField.select();
+        answerField.focus();
       }
     
       function cancel() {
-        hide("modalDialog");
+        hide("prompt");
       }
     
-      function fileNameFrom(baseName) {
-        return baseName.toLowerCase().replace(/\s+/g, "-") + ".txt"
+      function fileNameFrom(title) {
+        return title.toLowerCase().replace(/\s+/g, "-") + ".txt"
+      }
+    
+      function titleFrom(fileName) {
+        var result = fileName.replace(/-/g, " ");
+        result = result.substring(0, result.lastIndexOf('.'));
+        result = result.substring(0, 1).toUpperCase() + result.substring(1);
+        return result;
       }
     
       function save() {
         var title = val("title");
         var text = val("text");
-        modalDialog("Save as", fileNameFrom(title), function(fileName) {
-          var payload = JSON.stringify({
-            "fileName" : fileName,
-            "text" : text
-          });
-          client.open("POST", "/work");
-          client.setRequestHeader("Content-Type", "application/json");
-          client.send(payload);
+        ask("Save as", fileNameFrom(title), function(fileName) {
+          client.open("PUT", "/work/" + fileName);
+          client.setRequestHeader("Content-Type", "text/plain");
+          client.send(text);
           elt("text").focus();
         });
       }
-    
-      function ensureText(field) {
-        if (!field.value) {
-          field.value = 'Enter text'
-          field.select()
-        }
-      }
-    
-      function init() {
-        elt("title").focus();
+      
+      function load() {
+        var title = val("title");
+        ask("Load from", "", function(fileName) {
+          client.onload = function() {
+            elt("title").value = titleFrom(fileName);
+            elt("text").value = this.response;
+          };
+          client.open("GET", "/work/" + fileName);
+          client.setRequestHeader("Accept", "text/plain");
+          client.send();
+        });
       }
     </script>
   </head>
@@ -117,11 +135,11 @@
         <textarea id="text" cols="80" rows="14" oninput="ensureText(this)">Enter text</textarea>
       </p>
       <p>
-        <a id="save" href="javascript:save()">Save</a>
+        <a id="save" href="javascript:save()">Save</a>&nbsp;<a id="load" href="javascript:load()">Load</a>
       </p>
     </div>
-    <div id="modalDialog" class="modal">
-      <div id="modalDialogContent" class="modal-content">
+    <div id="prompt" class="modal">
+      <div class="modal-content">
         <p>
           <label id="question" for="answer"></label>&nbsp;<input id="answer" type="text" />
         </p>
