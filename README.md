@@ -5,3 +5,9 @@
 # AWE
 _Awesome Writing Environment_ (AWE) is for authors what an Integrated Development Environment is for programmers: a
 one-stop place where they can be productive and creative.
+
+## Status
+
+AWE is still alpha software, so use at your own risk. Check out the
+[roadmap](https://github.com/RemonSinnema/awe/milestones) to get a sense of what features are planned. You can also 
+[request a new feature](https://github.com/RemonSinnema/awe/issues) that isn't planned yet.
