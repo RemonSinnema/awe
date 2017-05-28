@@ -1,6 +1,14 @@
 <html>
   <head>
     <style type="text/css">
+      html, body {
+        height: 100%;
+      }
+      body {
+        color: DarkGreen;
+        font-family: Palatino serif;
+        background-image: url("/static/background.png");
+      }
       .modal {
       	display: none;
       	position: fixed;
@@ -13,13 +21,46 @@
       	background-color: rgb(0, 0, 0);
       	background-color: rgba(0, 0, 0, 0.4);
       }
-      
       .modal-content {
-      	background-color: #fefefe;
+      	background-color: AntiqueWhite;
       	margin: 15% auto;
       	padding: 20px;
       	border: 1px solid #888;
-      	width: 80%;
+      	width: 300px;
+      }
+      .modal-content input[type='text'] {
+        width: 100%;
+      }
+      .button {
+        float: right;
+        border-radius: 4px;
+      }
+      a {
+        font-weight: bold;
+        text-decoration: none;
+        color: DarkGreen;
+        background-color: DarkSeaGreen;
+        padding: 4px;
+        border-radius: 8px;
+      }
+      a:visited {
+        font-weight: bold;
+        text-decoration: none;
+        color: DarkGreen;
+        background-color: DarkSeaGreen;
+        padding: 4px;
+        border-radius: 8px;
+      }
+      a:hover {
+        font-weight: bold;
+        text-decoration: none;
+        color: FireBrick;
+        background-color: DarkSeaGreen;
+        padding: 4px;
+        border-radius: 8px;
+      }
+      input, textarea {
+        background-color: OldLace;
       }
     </style>
     <script type="text/javascript">
@@ -122,30 +163,31 @@
     </script>
   </head>
   <body onload="init()">
-    <div id="">
-      <h3>
+    <div>
+      <h2>
         Write your <em>Heartbreaking Work of Staggering Genius</em>!
-      </h3>
+      </h2>
+      <p>
+        <a id="load" href="javascript:load()">Load</a>&nbsp;
+        <a id="save" href="javascript:save()">Save</a>
+      </p>
       <p>
         <label for="title">Title:</label><br />
-        <input id="title" type="text" value="Enter text" oninput="ensureText(this)" />
+        <input id="title" type="text" value="Enter text" size="80" oninput="ensureText(this)" />
       </p>
       <p>
         <label for="text">Contents:</label><br />
-        <textarea id="text" cols="80" rows="14" oninput="ensureText(this)">Enter text</textarea>
-      </p>
-      <p>
-        <a id="save" href="javascript:save()">Save</a>&nbsp;<a id="load" href="javascript:load()">Load</a>
+        <textarea id="text" cols="80" rows="40" oninput="ensureText(this)">Enter text</textarea>
       </p>
     </div>
     <div id="prompt" class="modal">
       <div class="modal-content">
         <p>
-          <label id="question" for="answer"></label>&nbsp;<input id="answer" type="text" />
+          <label id="question" for="answer"></label><br/>
+          <input id="answer" type="text" size="43"/>
         </p>
-        <p>
-          <input id="ok" type="submit" value="OK" />&nbsp;<input type="submit" value="Cancel" onclick="cancel()" />
-        </p>
+        <input type="submit" value="Cancel" onclick="cancel()" class="button"/>&nbsp;
+        <input id="ok" type="submit" value="OK" class="button"/>
       </div>
     </div>
   </body>
