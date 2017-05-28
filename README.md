@@ -3,8 +3,9 @@
 [![license](https://img.shields.io/github/license/RemonSinnema/awe.svg)](https://github.com/RemonSinnema/awe/blob/master/LICENSE)
 
 # AWE
-_Awesome Writing Environment_ (AWE) is for authors what an Integrated Development Environment is for programmers: a
-one-stop place where they can be productive and creative.
+_Awesome Writing Environment_ (AWE) intends to be for authors what an Integrated Development Environment is for
+programmers: a one-stop place where they can be productive and creative.
+
 
 ## Status
 
