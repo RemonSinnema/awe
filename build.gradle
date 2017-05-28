@@ -14,16 +14,8 @@ import org.apache.tools.ant.taskdefs.condition.Os
 import net.thucydides.core.guice.Injectors
 import net.thucydides.core.util.EnvironmentVariables
 
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '3.5'
-}
-
 apply plugin: 'java'
 sourceCompatibility = 1.8
-
-apply plugin: 'org.springframework.boot'
-apply plugin: 'application'
 
 repositories {
   mavenCentral()
@@ -42,6 +34,23 @@ dependencies {
 sourceSets.test.java.srcDirs = ['src/programmer-test/java', 'src/customer-test/java']
 
 defaultTasks 'build'
+
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.5'
+}
+
+
+
+apply plugin: 'org.springframework.boot'
+
+
+
+apply plugin: 'application'
+
+tasks.withType(Tar){
+  compression = Compression.GZIP
+}
 
 
 
