@@ -8,6 +8,8 @@ one-stop place where they can be productive and creative.
 
 ## Status
 
-AWE is still alpha software, so use at your own risk. Check out the
-[roadmap](https://github.com/RemonSinnema/awe/milestones) to get a sense of what features are planned. You can also 
-[request a new feature](https://github.com/RemonSinnema/awe/issues) that isn't planned yet.
+AWE is still alpha software, so use at your own risk. That said, feel free to download the latest 
+[release](https://github.com/RemonSinnema/awe/releases) and let us know what you think.
+
+Check out the [roadmap](https://github.com/RemonSinnema/awe/milestones) to get a sense of what features are planned for
+the future. You can also [request a new feature](https://github.com/RemonSinnema/awe/issues) that isn't planned yet.
