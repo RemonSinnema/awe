@@ -101,7 +101,8 @@ apply from: rootProject.file('gradle/jdepend.gradle')
 
 
 apply plugin: 'net.serenity-bdd.aggregator'
-file('serenity.properties').withInputStream { input ->
+ext.serenityProperties = file('serenity.properties')
+serenityProperties.withInputStream { input ->
   Injectors.getInjector().getProvider(EnvironmentVariables).get().getProperties().load(input)
 }
 [clearReports, aggregate, checkOutcomes].each {

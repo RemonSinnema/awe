@@ -31,20 +31,21 @@ import tasks.Write;
 
 
 @RunWith(SerenityRunner.class)
-public class WhenPersistingWritings {
+public class WhenWritingWithoutStructure {
 
   private static final String TITLE = "Once upon a time";
   private static final String TEXT = "The end.";
   private static final String FILE_NAME = "once-upon-a-time.txt";
 
   @Managed(driver = "phantomjs")
-  private WebDriver theBrowser;
+  private WebDriver hisBrowser;
   private final Actor allen = Actor.named("Allen");
 
   @Before
   public void init() {
-    allen.can(BrowseTheWeb.with(theBrowser));
+    allen.can(BrowseTheWeb.with(hisBrowser));
     allen.can(BrowseTheFileSystem.in("build/acceptance-tests"));
+
     givenThat(allen).wasAbleTo(Start.writing());
   }
 

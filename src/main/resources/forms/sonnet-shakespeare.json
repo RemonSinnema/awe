@@ -1,0 +1,32 @@
+{ "type": "poem",
+  "category": "sonnet",
+  "sub-category": "shakespearian",
+  "structure": [ {
+    "name": "poetry",
+    "contains": [ {
+      "name": "poem",
+      "contains": [ {
+        "name": "h",
+        "contents: "title"
+      }, {
+        "name": "st",
+        "cardinality": "3",
+        "contains": [ {
+          "name": "sl",
+          "contents": "line",
+          "cardinality": "4"
+        }, {
+          "name": "st",
+          "contains": [ {
+            "name": "sl",
+            "contents": "line",
+            "cardinality": "2"
+          } ]
+        } ]
+      } ]
+    } ]
+  } ],
+  "rhyme": ["abab", "cdcd", "efef", "gg"],
+  "meter": ["x/x/x/x/x/", "/xx/x/x/x/", "x/x/x/x/x/x"],
+  "examples": ["https://www.poetryfoundation.org/poems-and-poets/poems/detail/45087"]
+}
