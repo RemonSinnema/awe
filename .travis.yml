@@ -6,13 +6,17 @@ before_cache:
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 install: true
-script: ./gradlew --no-daemon
+script: "./gradlew --no-daemon"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 addons:
   apt:
     packages:
-      - oracle-java8-installer
+    - oracle-java8-installer
+env:
+  global:
+    # ORG_GRADLE_PROJECT_sonarToken
+    secure: jM8pYcuGjbVoFBkYlmGxo4iAY1MPiPVSdpp8DjygzHrgVMg89RVLRRRRdxqW4nNohj18mV9JdpT+EYePwwiJgAcRGPRRaTcwa3aw8aXWvXz6a+EZowDUGCQOZyubtr5GMOaXWwyNUXgDaIWqTEr6MDFzJUxVjQQY7amUiC1d77j/x7V49x6DH7lgseIAZEQWSZQnq/DLm7z6qOmnvhX4gvNFOqEzhlWF2R1LQnQKAfeyya4ZU3JSHFxZFj7tOBnZh5dfUOjPZDxH7VVvUnmjW/1h/EeCOz9OEDSANSxBwWNkWWU49R73JNqcf0Ny5C4lG9rmTfbCpb8iopukWWM+KIECce3+gWeudA+iIVSXtyR47g8cWfIFxTph3r4op/pB9yyFkr0q7xK7KNcwTM68dvZUQC20SCzisNfzMTeOilc9yrBBWNuRePZgr5cVzcGpbuveOVJYSjcs3wkKzT5s8eZJm1Wu+12MDke77u8jNCdDuta8hqWUUyb3n09gdDJduwG36TqY0esjSZQpfO98FdfUghWminO1eEFzngCaVzvD6ZacO4R7CK7ITVIZMyWpg8kK2GOJrBL1QMSge+gBzS5HjuK08EdCBhcVbSbZGz/2HkMoOZvg6OmWsvjK8JxgbWta+3vwZvLmO7B5OZ7Cv2MktQlWSUvfVOFaaaCAuhk=

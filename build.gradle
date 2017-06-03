@@ -7,6 +7,7 @@ buildscript {
   dependencies {
     classpath "net.serenity-bdd:serenity-gradle-plugin:$serenityVersion"
     classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.4'
   }
 }
 
@@ -129,4 +130,17 @@ test {
   dependsOn installPhantom
   systemProperty 'phantomjs.binary.path', phantomBinary.path
   finalizedBy aggregate, checkOutcomes
+}
+
+
+// [sonarToken] is encrypted in .travis.yml, so only available when building in Travis
+if (project.hasProperty('sonarToken')) {
+  System.setProperty('sonar.login', sonarToken)
+  apply plugin: 'org.sonarqube'
+  subprojects.findAll { 
+    it.name.startsWith('sample')
+  }.each {
+    it.sonarqube.skipProject = true
+  }
+  check.dependsOn 'sonarqube'
 }
