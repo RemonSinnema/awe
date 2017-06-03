@@ -121,7 +121,6 @@ function save() {
 }
 
 function load() {
-  var title = val("title");
   ask("Load from", "", function(fileName) {
     client.onload = function() {
       elt("title").value = titleFrom(fileName);
