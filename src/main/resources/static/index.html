@@ -1,166 +1,7 @@
 <html>
   <head>
-    <style type="text/css">
-      html, body {
-        height: 100%;
-      }
-      body {
-        color: DarkGreen;
-        font-family: Palatino serif;
-        background-image: url("/static/background.png");
-      }
-      .modal {
-      	display: none;
-      	position: fixed;
-      	z-index: 1;
-      	left: 0;
-      	top: 0;
-      	width: 100%;
-      	height: 100%;
-      	overflow: auto;
-      	background-color: rgb(0, 0, 0);
-      	background-color: rgba(0, 0, 0, 0.4);
-      }
-      .modal-content {
-      	background-color: AntiqueWhite;
-      	margin: 15% auto;
-      	padding: 20px;
-      	border: 1px solid #888;
-      	width: 300px;
-      }
-      .modal-content input[type='text'] {
-        width: 100%;
-      }
-      .button {
-        float: right;
-        border-radius: 4px;
-      }
-      a {
-        font-weight: bold;
-        text-decoration: none;
-        color: DarkGreen;
-        background-color: DarkSeaGreen;
-        padding: 4px;
-        border-radius: 8px;
-      }
-      a:visited {
-        font-weight: bold;
-        text-decoration: none;
-        color: DarkGreen;
-        background-color: DarkSeaGreen;
-        padding: 4px;
-        border-radius: 8px;
-      }
-      a:hover {
-        font-weight: bold;
-        text-decoration: none;
-        color: FireBrick;
-        background-color: DarkSeaGreen;
-        padding: 4px;
-        border-radius: 8px;
-      }
-      input, textarea {
-        background-color: OldLace;
-      }
-    </style>
-    <script type="text/javascript">
-      var client = new XMLHttpRequest();
-      client.onerror = function(e) {
-        alert("Error: " + e.error);
-      };
-      client.onload = function() {
-        if (!this.response) return;
-        var resp = JSON.parse(this.response);
-        if (resp.status / 100 != 2) {
-          alert(resp.path + ": " + resp.status + " " + resp.error);
-        }
-      };
-    
-      function elt(id) {
-        return document.getElementById(id);
-      }
-    
-      function init() {
-        elt("title").focus();
-      }
-      
-      function ensureText(field) {
-        if (!field.value) {
-          field.value = 'Enter text'
-          field.select()
-        }
-      }
-    
-      function val(id) {
-        return elt(id).value;
-      }
-    
-      function setStyle(element, visibility, display) {
-        element.style.visibility = visibility;
-        element.style.display = display;
-      }
-    
-      function show(id) {
-        setStyle(elt(id), "visible", "block");
-      }
-    
-      function hide(id) {
-        setStyle(elt(id), "hidden", "none");
-      }
-    
-      function ask(question, defaultAnswer, handleAnswered) {
-        elt("question").textContent = question;
-        var answerField = elt("answer");
-        answerField.value = defaultAnswer;
-        elt("ok").onclick = function() {
-          var answer = elt("answer").value;
-          hide("prompt");
-          handleAnswered(answer);
-        }
-        show("prompt");
-        answerField.select();
-        answerField.focus();
-      }
-    
-      function cancel() {
-        hide("prompt");
-      }
-    
-      function fileNameFrom(title) {
-        return title.toLowerCase().replace(/\s+/g, "-") + ".txt"
-      }
-    
-      function titleFrom(fileName) {
-        var result = fileName.replace(/-/g, " ");
-        result = result.substring(0, result.lastIndexOf('.'));
-        result = result.substring(0, 1).toUpperCase() + result.substring(1);
-        return result;
-      }
-    
-      function save() {
-        var title = val("title");
-        var text = val("text");
-        ask("Save as", fileNameFrom(title), function(fileName) {
-          client.open("PUT", "/work/" + fileName);
-          client.setRequestHeader("Content-Type", "text/plain");
-          client.send(text);
-          elt("text").focus();
-        });
-      }
-      
-      function load() {
-        var title = val("title");
-        ask("Load from", "", function(fileName) {
-          client.onload = function() {
-            elt("title").value = titleFrom(fileName);
-            elt("text").value = this.response;
-          };
-          client.open("GET", "/work/" + fileName);
-          client.setRequestHeader("Accept", "text/plain");
-          client.send();
-        });
-      }
-    </script>
+    <link rel="stylesheet" href="/static/awe.css" type="text/css"/>
+    <script type="text/javascript" src="/static/awe.js"></script>
   </head>
   <body onload="init()">
     <div>
@@ -168,26 +9,28 @@
         Write your <em>Heartbreaking Work of Staggering Genius</em>!
       </h2>
       <p>
+        <a id="new" href="javascript:create()">New</a>&nbsp;
         <a id="load" href="javascript:load()">Load</a>&nbsp;
         <a id="save" href="javascript:save()">Save</a>
       </p>
-      <p>
-        <label for="title">Title:</label><br />
-        <input id="title" type="text" value="Enter text" size="80" oninput="ensureText(this)" />
-      </p>
-      <p>
-        <label for="text">Contents:</label><br />
-        <textarea id="text" cols="80" rows="40" oninput="ensureText(this)">Enter text</textarea>
-      </p>
-    </div>
-    <div id="prompt" class="modal">
-      <div class="modal-content">
+      <div id="editors">
         <p>
-          <label id="question" for="answer"></label><br/>
-          <input id="answer" type="text" size="43"/>
+          <label for="title">Title:</label><br />
+          <input id="title" type="text" value="Enter text" size="80" oninput="ensureText(this)" />
         </p>
-        <input type="submit" value="Cancel" onclick="cancel()" class="button"/>&nbsp;
-        <input id="ok" type="submit" value="OK" class="button"/>
+        <p>
+          <label for="text">Contents:</label><br />
+          <textarea id="text" cols="80" rows="40" oninput="ensureText(this)">Enter text</textarea>
+        </p>
+      </div>
+    </div>
+    <div id="modal">
+      <div class="modal-content">
+        <p id="modal-content"/>
+        <p>
+          <input id="cancel" type="submit" value="Cancel" class="button" onclick="cancel()"/>&nbsp;
+          <input id="ok" type="submit" value="OK" class="button" onclick="ok()"/>
+        </p>
       </div>
     </div>
   </body>

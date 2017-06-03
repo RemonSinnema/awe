@@ -2,7 +2,10 @@ package com.remonsinnema.awe;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -21,6 +24,17 @@ public class AweApplication {
     SpringApplication.run(AweApplication.class, args);
   }
 
+
+  private final Map<String, String> contentTypeByExtension = new HashMap<>();
+
+  @PostConstruct
+  public void init() {
+    contentTypeByExtension.put("css", "text/css");
+    contentTypeByExtension.put("html", "text/html");
+    contentTypeByExtension.put("js", "text/javascript");
+    contentTypeByExtension.put("png", "image/png");
+  }
+
   @RequestMapping(path = "/")
   public void index(HttpServletResponse response) throws IOException {
     staticResource("index.html", response);
@@ -28,9 +42,15 @@ public class AweApplication {
 
   @RequestMapping(path = "/static/{name}")
   public void staticResource(@PathVariable("name") String name, HttpServletResponse response) throws IOException {
+    response.setHeader("Content-Type", typeOf(name));
     try (InputStream content = getClass().getResourceAsStream("/static/" + name)) {
       IOUtils.copy(content, response.getOutputStream());
     }
+  }
+
+  private String typeOf(String name) {
+    String ext = name.substring(1 + name.lastIndexOf('.'));
+    return contentTypeByExtension.getOrDefault(ext, "text/plain");
   }
 
 }
