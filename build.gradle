@@ -29,7 +29,8 @@ dependencies {
   testCompile 'junit:junit:4.12',
       "net.serenity-bdd:serenity-junit:$serenityVersion",
       "net.serenity-bdd:serenity-screenplay:$serenityVersion",
-      "net.serenity-bdd:serenity-screenplay-webdriver:$serenityVersion"
+      "net.serenity-bdd:serenity-screenplay-webdriver:$serenityVersion",
+      "org.awaitility:awaitility:$awaitilityVersion"
 }
 
 sourceSets.test.java.srcDirs = ['src/programmer-test/java', 'src/customer-test/java']

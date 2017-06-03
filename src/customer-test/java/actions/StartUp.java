@@ -2,6 +2,9 @@ package actions;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
+import java.util.concurrent.TimeUnit;
+
+import org.awaitility.Awaitility;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -29,13 +32,7 @@ public class StartUp implements Interaction {
 
   private void waitForServer() {
     RestTemplate template = new RestTemplate();
-    while (!isStarted(template)) {
-      try {
-        Thread.sleep(100);
-      } catch (InterruptedException e) {
-        // Ignore
-      }
-    }
+    Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> isStarted(template));
   }
 
   private boolean isStarted(RestTemplate template) {
