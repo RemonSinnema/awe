@@ -1,14 +1,14 @@
 var client = new XMLHttpRequest();
 
 client.onerror = function(e) {
-  alert("Error: " + e.error);
+  console.log("Error: " + e.error);
 };
 
 client.onload = function() {
   if (!this.response) return;
   var resp = JSON.parse(this.response);
   if (resp.status / 100 != 2) {
-    alert(resp.path + ": " + resp.status + " " + resp.error);
+    console.log(resp.path + ": " + resp.status + " " + resp.error);
   }
 };
 
