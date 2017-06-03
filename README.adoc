@@ -1,0 +1,18 @@
+image:https://img.shields.io/github/license/remonsinnema/awe.svg[title="License: MIT", link="https://www.mozilla.org/en-US/MPL/2.0/"]
+image:https://img.shields.io/travis/RemonSinnema/awe.svg[title="Travis", link="https://travis-ci.org/RemonSinnema/awe"]
+image:https://img.shields.io/codecov/c/github/RemonSinnema/awe.svg[title="Code coverage", link="https://codecov.io/github/RemonSinnema/awe"]
+image:https://sonarqube.com/api/badges/measure?key=com.remonsinnema:awe&metric=sqale_debt_ratio[title="Technical Debt", link="https://sonarqube.com/dashboard?id=com.remonsinnema:awe"]
+
+= AWE
+_Awesome Writing Environment_ (AWE) intends to be for authors what an 
+https://en.wikipedia.org/wiki/Integrated_development_environment[Integrated Development Environment] is for 
+software developers: a one-stop place where they can be productive and creative.
+
+
+== Status
+
+AWE is still alpha software, so use at your own risk. That said, feel free to download the latest 
+https://github.com/RemonSinnema/awe/releases[release] and let us know what you think.
+
+Check out the https://github.com/RemonSinnema/awe/milestones[roadmap] to get a sense of what features are planned for
+the future. You can also https://github.com/RemonSinnema/awe/issues[request a new feature] that isn't planned yet.
