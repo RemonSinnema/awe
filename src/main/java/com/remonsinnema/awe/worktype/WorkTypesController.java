@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class WorkTypesController {
 
   private static final String NL = System.getProperty("line.separator");
+  private static final String START_ROW = "<tr><td>";
+  private static final String START_CELL = "</td><td>";
+  private static final String END_ROW = "</td></tr>";
 
   private WorkTypesService service;
 
@@ -25,15 +28,16 @@ public class WorkTypesController {
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
   public String getWorkTypes() {
     StringBuilder result = new StringBuilder(512);
-    result.append("<table>").append(NL).append("<tr><td>").append(labelFor("type", "Type"))
-        .append("</td><td><select id='type' onchange='typeChanged()'>");
+    result.append("<table>").append(NL).append(START_ROW).append(labelFor("type", "Type"))
+        .append(START_CELL).append("<select id='type' onchange='typeChanged()'>");
     for (String type : service.getTypes()) {
       result.append("<option value='").append(type).append("'>").append(type).append("</option>");
     }
-    result.append("</select></td></tr>").append(NL).append("<tr><td>").append(labelFor("category", "Category"))
-        .append("</td><td><select id='category' onchange='categoryChanged()'></select></td></tr>").append(NL)
-        .append("<tr><td>").append(labelFor("subcategory", "Sub-category"))
-        .append("</td><td><select id='subcategory'></select></td></tr>").append(NL).append("</table>").append(NL);
+    result.append("</select>").append(END_ROW).append(NL).append(START_ROW).append(labelFor("category", "Category"))
+        .append(START_CELL).append("<select id='category' onchange='categoryChanged()'></select>").append(END_ROW)
+        .append(NL).append(START_ROW).append(labelFor("subcategory", "Sub-category"))
+        .append(START_CELL).append("<select id='subcategory'></select>").append(END_ROW)
+        .append(NL).append("</table>").append(NL);
     return result.toString();
   }
 
@@ -50,7 +54,7 @@ public class WorkTypesController {
   @SuppressWarnings("unchecked")
   private String toJsonArrayAsString(Iterable<String> items) {
     JSONArray result = new JSONArray();
-    items.forEach(item -> result.add(item));
+    items.forEach(result::add);
     return result.toJSONString();
   }
 
