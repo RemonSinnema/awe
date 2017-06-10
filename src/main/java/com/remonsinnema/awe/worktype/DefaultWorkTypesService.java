@@ -3,6 +3,7 @@ package com.remonsinnema.awe.worktype;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,7 +45,7 @@ public class DefaultWorkTypesService implements WorkTypesService {
       PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
       try {
         for (Resource resource : resolver.getResources("classpath:worktypes/*.json")) {
-          try (Reader reader = new InputStreamReader(resource.getInputStream())) {
+          try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
             cachedWorkTypes.add((JSONObject)jsonParser.parse(reader));
           }
         }

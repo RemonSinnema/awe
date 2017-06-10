@@ -24,7 +24,7 @@ public class WorkTypesController {
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
   public String getWorkTypes() {
-    StringBuilder result = new StringBuilder();
+    StringBuilder result = new StringBuilder(512);
     result.append("<table>").append(NL).append("<tr><td>").append(labelFor("type", "Type"))
         .append("</td><td><select id='type' onchange='typeChanged()'>");
     for (String type : service.getTypes()) {

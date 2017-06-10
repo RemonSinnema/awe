@@ -18,12 +18,12 @@ public class WhenServicingWorkTypes {
     assertItems("Types", service.getTypes(), "poem", "prose");
   }
 
-  private void assertItems(String message, Iterable<String> actual, String... expected) {
-    Collection<String> needed = new TreeSet<>(Arrays.asList(expected));
+  private void assertItems(String types, Iterable<String> actual, String... expected) {
+    Collection<String> missing = new TreeSet<>(Arrays.asList(expected));
     for (String value : actual) {
-      needed.remove(value);
+      missing.remove(value);
     }
-    assertTrue("Missing items: " + needed, needed.isEmpty());
+    assertTrue("Missing " + types + ": " + missing, missing.isEmpty());
   }
 
   @Test
