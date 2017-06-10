@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class WorkServiceImpl implements WorkService {
+public class DefaultWorkService implements WorkService {
 
-  private static final Logger LOG = Logger.getLogger(WorkServiceImpl.class);
+  private static final Logger LOG = Logger.getLogger(DefaultWorkService.class);
 
   @Value("${work.directory}")
   private String workPath;

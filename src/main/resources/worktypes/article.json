@@ -1,0 +1,25 @@
+{ "type": "prose",
+  "category": "article",
+  "structure": [ {
+    "name": "prosa",
+    "contains": [ {
+      "name": "article",
+      "contains": [ {
+        "name": "section",
+        "contents": "block",
+        "cardinality": "*",
+        "contains": [ {
+          "name": "subsection",
+          "contents": "block",
+          "cardinality": "*",
+          "contains": [ {
+            "ref": "subsection"
+          } ]
+        } ]
+      } ]
+    } ]
+  } ],
+  "rhyme": ["abab", "cdcd", "efef", "gg"],
+  "meter": ["x/x/x/x/x/", "/xx/x/x/x/", "x/x/x/x/x/x"],
+  "examples": ["https://www.poetryfoundation.org/poems-and-poets/poems/detail/45087"]
+}

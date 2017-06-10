@@ -25,7 +25,8 @@ repositories {
 dependencies {
   compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
       "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
-      "commons-io:commons-io:$commonsIoVersion"
+      "commons-io:commons-io:$commonsIoVersion",
+      "com.googlecode.json-simple:json-simple:$jsonSimpleVersion"
   testCompile 'junit:junit:4.12',
       "net.serenity-bdd:serenity-junit:$serenityVersion",
       "net.serenity-bdd:serenity-screenplay:$serenityVersion",

@@ -7,7 +7,7 @@
       "name": "poem",
       "contains": [ {
         "name": "h",
-        "contents: "title"
+        "contents": "title"
       }, {
         "name": "st",
         "cardinality": "3",

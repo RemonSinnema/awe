@@ -21,11 +21,16 @@ function stackTrace() {
 
 
 function elt(id) {
-  return document.getElementById(id);
+  var result = document.getElementById(id);
+  if (!result) {
+    console.log("Could not find element with id " + id);
+  }
+  return result;
 }
 
 function val(id) {
-  return elt(id).value;
+  var element = elt(id);
+  return element ? element.value : null;
 }
 
 function init() {
@@ -65,6 +70,14 @@ function ok() {
     modalOkHandler = null;
   }
   cancel();
+}
+
+function modalKeyUp(evt) {
+  evt = evt || window.event;
+  var charCode = evt.keyCode || evt.which;
+  if (charCode == 27) {
+    cancel();
+  }
 }
 
 function modal(url, okHandler, formLoaded, formShown) {
@@ -133,5 +146,42 @@ function load() {
 }
 
 function create() {
-  modal("/create");
+  modal("/work-types", null, null, typeChanged);
+}
+
+function setOptions(id, options) {
+  var optionsHtml = "";
+  var items = options ? JSON.parse(options) : {};
+  for(var i = 0; i < items.length; i++) {
+    var item = items[i];
+    optionsHtml = optionsHtml + "<option value='" + item + "'>" + item + "</option>"; 
+  }
+  elt(id).innerHTML = optionsHtml;
+}
+
+function typeChanged() {
+  var type = val("type");
+  if (!type) return;
+  
+  client.onload = function() {
+    setOptions("category", this.response);
+    categoryChanged();
+  } 
+  client.open("GET", "/work-types/" + type);
+  client.setRequestHeader("Accept", "application/json");
+  client.send();
+}
+
+function categoryChanged() {
+  var type = val("type");
+  if (!type) return;
+  var category = val("category");
+  if (!category) return;
+  
+  client.onload = function() {
+    setOptions("subcategory", this.response);
+  } 
+  client.open("GET", "/work-types/" + type + "/" + category)
+  client.setRequestHeader("Accept", "application/json");
+  client.send();
 }

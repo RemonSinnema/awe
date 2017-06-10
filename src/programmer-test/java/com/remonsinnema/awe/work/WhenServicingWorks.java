@@ -25,7 +25,7 @@ public class WhenServicingWorks {
 
   @Rule
   public final ExpectedException thrown = ExpectedException.none();
-  private final WorkService service = new WorkServiceImpl();
+  private final WorkService service = new DefaultWorkService();
 
   @Before
   public void init() {
