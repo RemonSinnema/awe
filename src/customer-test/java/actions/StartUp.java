@@ -32,7 +32,7 @@ public class StartUp implements Interaction {
 
   private void waitForServer() {
     RestTemplate template = new RestTemplate();
-    Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> isStarted(template));
+    Awaitility.await().atMost(60, TimeUnit.SECONDS).until(() -> isStarted(template));
   }
 
   private boolean isStarted(RestTemplate template) {
