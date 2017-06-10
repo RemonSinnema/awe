@@ -1,10 +1,15 @@
 package features;
 
+import static org.hamcrest.Matchers.contains;
+
 import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.then;
 import static net.serenitybdd.screenplay.GivenWhenThen.when;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +19,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 
+import questions.TheStructured;
 import tasks.Start;
 import tasks.StartNewWork;
 import tasks.Stop;
@@ -39,9 +45,10 @@ public class WhenWritingWithStructure {
   }
 
   @Test
+  @Ignore("TDODO: Implement")
   public void shouldSaveAndLoadWorkOfFixedStructure() {
     when(allen).attemptsTo(StartNewWork.ofType("poem", "sonnet", "shakespearian"));
-    // TODO: then(allen).should(seeThat(TheStructured.editors(), contains("h1", "st1", "st2", "st3", "st4")));
+    then(allen).should(seeThat(TheStructured.editors(), contains("h1", "st1", "st2", "st3", "st4")));
   }
 
 }
